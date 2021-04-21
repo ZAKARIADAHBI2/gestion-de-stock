@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import FirebaseService from '../../FirebaseService';
+import firbasecategorie from '../../firbasecategorie';
 import 'bootstrap/dist/css/bootstrap.css';
-import Categories from './categories';
 
 
 class CategoryList extends Component {
@@ -15,54 +14,56 @@ class CategoryList extends Component {
   }
 
   componentDidMount = () => {
-    FirebaseService.getAll().on("value", this.onDataChange);
+    firbasecategorie.getAll().on("value", this.onDataChange);
   }
 
   componentWillUnmount = () => {
-    FirebaseService.getAll().off("value", this.onDataChange);
+    firbasecategorie.getAll().off("value", this.onDataChange);
   }
 
   onDataChange = (items) => {
     console.log(items);
-    let category = [];
+    let categories = [];
     items.forEach(item => {
       let data = item.val();
-      category.push({
-        
-        name: data.name
-        
+      categories.push({
+        key: item.key,
+       name:data.name,
+       description  : data.description 
+  
        
         
       });
     });
 
     this.setState({
-        category: category,
+      categories: categories,
       isLoading: false
     });
   }
 
   async remove(key) {
-    FirebaseService.delete(key)
+    firbasecategorie.delete(key)
     .then(() => {
-      let updatedCategories = [...this.state.customers].filter(i => i.key !== key);
-      this.setState({category: updatedCategories});
+      let updatedCategorie = [...this.state.categories].filter(i => i.key !== key);
+      this.setState({categories: updatedCategorie});
     });
   }
 
   render() {
-    const {category, isLoading} = this.state;
+    const {categories, isLoading} = this.state;
 
-    const categoriesList = category.map(category => {
-      return <tr key={category.key}>
-        <td style={{whiteSpace: 'nowrap'}}>{category.name}</td>
-        <td>{category.name}</td>
-    
+    const CategoryList = categories.map(categorie => {
+      return <tr key={categorie.key}>
+        <td style={{whiteSpace: 'nowrap'}}>{categorie.name}</td>
+        <td >{categorie.description}</td>
+      
+       
      
         <td>
           <ButtonGroup>
-            <Button size="sm" color="primary" tag={Link} to={"/categories/" + category.key}>Edit</Button>
-            <Button size="sm" color="danger" onClick={() => this.remove(category.key)}>Delete</Button>
+            <Button size="sm" color="primary" tag={Link} to={"/categories/" + categorie.key}>Edit</Button>
+            <Button size="sm" color="danger" onClick={() => this.remove(categorie.key)}>Delete</Button>
           </ButtonGroup>
         </td>
       </tr>
@@ -73,15 +74,16 @@ class CategoryList extends Component {
         
         <Container fluid>
           <div className="float-right">
-            <Button color="success" tag={Link} to="/categories/new">Add Categories</Button>
+            <Button color="success" tag={Link} to="/categories/new">Add Categorie</Button>
           </div>
-          
+          <h3>Categorie List</h3>
           <Table className="mt-4">
             <thead>
               <tr>
-                <th width="20%">Category name</th>
-               
-                <th width="10%">Actions</th>
+                <th width="20%">Categorie</th>
+                <th width="20%">Dsecripetion</th>
+              
+                <th width="20%">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -93,5 +95,4 @@ class CategoryList extends Component {
     );
   }
 }
-
 export default CategoryList;

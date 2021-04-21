@@ -10,7 +10,7 @@ function Categories() {
   return (
     <>
        <Container fluid>
-          <Button color="link"><Link to="/Categories">Manage categories List</Link></Button>
+   <CategoryList />
         </Container>
      
     </>

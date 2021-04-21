@@ -33,12 +33,14 @@ function Footer() {
     <FooterContainer>
       <FooterSubscription>
         <FooterSubHeading>
-          Join our exclusive membership to receive the latest news and trends
+          send us your feedback
         </FooterSubHeading>
-        <FooterSubText>You can unsubscribe at any time.</FooterSubText>
+      
         <Form>
           <FormInput name='email' type='email' placeholder='Your Email' />
-          <Button fontBig>Subscribe</Button>
+          <FormInput name='email' type='text' placeholder='Your feedback' />
+          <Button fontBig>Send</Button>
+
         </Form>
       </FooterSubscription>
       <FooterLinksContainer>
@@ -83,7 +85,7 @@ function Footer() {
 
             SHOP
           </SocialLogo>
-          <WebsiteRights>ZAKARIA DAHBI PFE ESTF © 2021</WebsiteRights>
+          <WebsiteRights>PFE ESTF © 2021</WebsiteRights>
           <SocialIcons>
             <SocialIconLink href='/' target='_blank' aria-label='Facebook'>
               <FaFacebook />

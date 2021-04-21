@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
 import FirebaseService from '../../FirebaseService';
+import firbasecategorie  from  '../../firbasecategorie';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
@@ -75,8 +76,9 @@ class CustomerEdit extends Component {
   };
 
   render = () => {
+    
     const {item} = this.state;
-    const title = <h2>{item.key ? 'Edit Customer' : 'Add Customer'}</h2>;
+    const title = <h2>{item.key ? 'Edit product' : 'Add product'}</h2>;
 
     return <div>
       <Container>
@@ -93,15 +95,15 @@ class CustomerEdit extends Component {
                    onChange={this.handleChange} autoComplete="Price"/>
           </FormGroup>          
           <FormGroup>
-            <Label for="Quntite">Quntite</Label>
+            <Label for="Quntite">Quantite</Label>
             <Input type="text" name="Quntite" id="Quntite" value={item.Quntite || ''}
                    onChange={this.handleChange} autoComplete="Quntite"/>
           </FormGroup>
           <FormGroup>
-            <Label for="category">category</Label>
+            <Label for="category">Categorie</Label>
             <Input type="text" name="category" id="category" value={item.category || ''}
                    onChange={this.handleChange} autoComplete="category"/>
-          </FormGroup>
+          </FormGroup> 
           <FormGroup>
             <Label for="image">Product Image:</Label>
             <Input type="file" name="image" id="image" value={item.image || ''}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { InfoSection, Pricing } from '../../components';
 import { Button, ButtonGroup, Container, Table } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import loogo from '../../images/pro.jpg';
 
 import { Link } from 'react-router-dom';
 import FirebaseService from '../../FirebaseService';
@@ -55,53 +56,46 @@ class Home extends Component {
 
   render() {
     const {customers, isLoading} = this.state;
-   
+    const styles={
+      width:"20%",
+      display:"inline-block",
+      padding:"1%"
+    }
+    const btnn={
+  padding: "1rem 4rem",
+  border: "none",
+  background: "#e31837",
+  color: "#fff",
+  transition: "0.2 ease-out"
+ 
+    }
+    const hhh={
+      fontsize: "clamp(2rem, 2.5vw, 3rem)",
+  textalign: "center",
+  marginbottom: "5rem",
   
-
-
-   const customerList = customers.map(customer => {
-
-      return (
-        <div className="main_container">
-       
-       
-        <section class="our-publication pt-100 pb-70">
-             <div class="container">
-                 
-            <div class="row">
-        <div class="col-sm-6 col-lg-3"> 
-            <div class="single-publication">
-                <figure>
-                    <a href="#">
-                        <img src={customer.image} alt="Publication Image" />
-                    </a>
-                    <ul>
-                        <li><a href="#" title="Add to Favorite"><i class="fa fa-heart"></i></a></li>
-                        <li><a href="#" title="Add to Compare"><i class="fa fa-refresh"></i></a></li>
-                        <li><a href="#" title="Quick View"><i class="fa fa-search"></i></a></li>
-                    </ul>
-                </figure>
-                <div class="publication-content">
-                    <h3><a href="#">{customer.productname}</a></h3>
-                    <ul>
-                        <li><i class="icofont-star"></i></li>
-                        <li><i class="icofont-star"></i></li>
-                        <li><i class="icofont-star"></i></li>
-                        <li><i class="icofont-star"></i></li>
-                        <li><i class="icofont-star"></i></li>
-                    </ul>
-                    <h4 class="price">{customer.Price}</h4>
-                </div>
-                <div class="add-to-cart">
-                    <a href="#" class="default-btn">Add to Cart</a>
-                </div>
-            </div>
-        </div>
-        </div>
-        </div>
-        </section>
-        </div>
-      )
+    }
+    const customerList = customers.map(customer => {
+      return <div style={styles} class="product-grid">
+                  <div class="product-image">
+                      <a href="#">
+                          <img class="pic-1" src={loogo}/></a>
+                  </div>
+                  <div class="product-content">
+                      <h3 class="title">
+                          <a href="#">{customer.productname}</a>
+                      </h3>
+                      <div class="price">{customer.Price}</div>
+                  </div>
+                  <button style={btnn}
+              className="btn-custom"
+           
+            >
+              Add to cart
+            </button>
+              </div>
+            
+         
       
     });
               
@@ -111,8 +105,6 @@ class Home extends Component {
       <div>
         
         <Container fluid>
-         
-          
             {customerList}
             
         </Container>

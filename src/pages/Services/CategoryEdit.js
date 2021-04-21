@@ -1,43 +1,47 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Button, Container, Form, FormGroup, Input, Label } from 'reactstrap';
-import FirebaseService from '../../FirebaseService';
+import firbasecategorie from '../../firbasecategorie';
 import 'bootstrap/dist/css/bootstrap.css';
 
 
 class CategoryEdit extends Component {
-
-  emptyCategory = {
-    name:''
+  emptyCATEGORIE = {
+    key: '',
+  name:'',
+  description: ''
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      item: this.emptyCategory
+      item: this.emptyCATEGORIE
     };
   }
 
   componentDidMount = () => {
     let key = this.props.match.params.key
     if (key !== 'new') {
-      FirebaseService.get(key).on("value", this.onDataChange);
+      firbasecategorie.get(key).on("value", this.onDataChange);
     }
   }
 
   componentWillUnmount = () => {
-    FirebaseService.getAll().off("value", this.onDataChange);
+    firbasecategorie.getAll().off("value", this.onDataChange);
   }
 
   onDataChange = (item) => {
     let data = item.val();
-    let category = {
-      name: data.name
+    let categorie = {
+      key: item.key,
+     name: data.name,
+     description  : data.description 
+
     
     };
 
     this.setState({
-      item: category,
+      item: categorie,
     });
   }
 
@@ -55,31 +59,36 @@ class CategoryEdit extends Component {
     const {item} = this.state;
     let key = this.props.match.params.key
     if (key !== 'new') {
-      FirebaseService.update(key, item);
+      firbasecategorie.update(key, item);
     } else {
-      FirebaseService.addCategory(item);
+      firbasecategorie.addCategory(item);
     }
-    this.props.history.push('/category');
+
+    this.props.history.push('/categories');
   };
 
   render = () => {
+    
     const {item} = this.state;
-    const title = <h2>{item.key ? 'Edit Category' : 'Add Category'}</h2>;
+    const title = <h2>{item.key ? 'Edit categorie' : 'Add categorie'}</h2>;
 
     return <div>
       <Container>
         {title}
         <Form onSubmit={this.handleSubmit}>
           <FormGroup>
-            <Label for="name">Category name</Label>
-            <Input type="text" name="name" id="name" value={item.name || ''}
+            <Label for="name">Categorie</Label>
+            <Input type="text" name="name" id="productname" value={item.name || ''}
                    onChange={this.handleChange} autoComplete="name"/>
           </FormGroup>
-          
-          
+          <FormGroup>
+            <Label for="description">description</Label>
+            <Input type="text" name="description" id="description" value={item.description || ''}
+                   onChange={this.handleChange} autoComplete="description"/>
+          </FormGroup>
           <FormGroup>
             <Button color="primary" type="submit">Save</Button>{' '}
-            <Button color="secondary" tag={Link} to="/Categories">Cancel</Button>
+            <Button color="secondary" tag={Link} to="/categories">Cancel</Button>
           </FormGroup>
         </Form>
       </Container>

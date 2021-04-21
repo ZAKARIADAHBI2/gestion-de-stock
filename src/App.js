@@ -29,7 +29,9 @@ function App() {
       <GlobalStyle />
       <ScrollToTop />
       <Navbar />
+      
       <Switch>
+   
         <Route path='/' exact component={Home} />
         <Route path='/services' component={Services} />
         <Route path='/products' component={Products} />
@@ -42,12 +44,7 @@ function App() {
         <UserProvider>
       <Application />
       
-    </UserProvider>
-
-      
-        
-      
-         
+      </UserProvider>
       </Switch>
       <Footer />
     </Router>
